@@ -229,6 +229,10 @@
     }
 
     .about-text p + p { margin-top: 16px; }
+    .about-status { margin-top: 24px; display: inline-flex; align-items: center; gap: 8px; font-size: 0.8rem; color: #525252; }
+    .about-status .dot { width: 6px; height: 6px; border-radius: 50%; background: #22c55e; animation: statusPulse 2s ease-in-out infinite; flex-shrink: 0; }
+    @keyframes statusPulse { 0%,100% { opacity: 0.4; } 50% { opacity: 1; } }
+    .about-status .label { color: #333; letter-spacing: 0.05em; text-transform: uppercase; font-size: 0.65rem; }
 
     .project-item {
       display: flex; align-items: baseline; justify-content: space-between;
@@ -496,6 +500,7 @@
       <div class="about-text">
         <p id="typewriterText">I'm Dz Dev. I love programming, anything CS-related, and technology in general — my favorite languages are C, C++, and Python.</p>
         <p>Whether it's low-level systems or scripting, I just enjoy building things that work.</p>
+        <div class="about-status"><span class="dot"></span><span class="label">now</span> exploring kernel stuff &amp; messing with C</div>
       </div>
     </section>
 
@@ -521,15 +526,19 @@
 
       <div class="post-item">
         <span class="post-title">FreeBSD is the best</span>
+        <span class="post-date">Jul 2026</span>
       </div>
       <div class="post-item">
         <span class="post-title">Python isnt that bad</span>
+        <span class="post-date">Jun 2026</span>
       </div>
       <div class="post-item">
         <span class="post-title">C++ isnt hard</span>
+        <span class="post-date">Apr 2026</span>
       </div>
       <div class="post-item">
         <span class="post-title">JavaScript? more like JokeScript</span>
+        <span class="post-date">Mar 2026</span>
       </div>
     </section>
 
