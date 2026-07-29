@@ -194,14 +194,11 @@
 
     .about-avatar-wrap {
       position: relative; width: fit-content; margin: 0 auto 32px;
-      perspective: 800px;
     }
 
     .about-avatar-inner {
       position: relative; width: 160px; height: 160px;
       border-radius: 50%;
-      transition: transform 0.1s ease;
-      transform-style: preserve-3d;
     }
 
     .about-avatar-inner::before {
@@ -643,18 +640,7 @@
       });
     })();
 
-    (function() {
-      var wrap = document.getElementById('pfpTilt');
-      if (!wrap || ('ontouchstart' in window || navigator.maxTouchPoints > 0)) return;
-      var rect = wrap.getBoundingClientRect();
-      var cx = rect.left + rect.width / 2, cy = rect.top + rect.height / 2;
-      window.addEventListener('resize', function() { var r = wrap.getBoundingClientRect(); cx = r.left + r.width / 2; cy = r.top + r.height / 2; });
-      document.addEventListener('mousemove', function(e) {
-        var dx = (e.clientX - cx) / 30, dy = (e.clientY - cy) / 30;
-        wrap.style.transform = 'rotateX(' + Math.max(-15, Math.min(15, -dy)) + 'deg) rotateY(' + Math.max(-15, Math.min(15, dx)) + 'deg)';
-      });
-      document.addEventListener('mouseleave', function() { wrap.style.transform = 'rotateX(0deg) rotateY(0deg)'; });
-    })();
+
 
 
 
