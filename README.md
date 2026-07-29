@@ -1,3 +1,3 @@
-# DZDEVreal.github.io
+# dz.dev
 
-ye so i made this bc im not paying for a domain :3
+Personal site — built with plain HTML, CSS, and JS. Hosted on GitHub Pages.
