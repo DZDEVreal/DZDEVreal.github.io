@@ -7,6 +7,7 @@
   <meta name="description" content="Dz Dev. Building things on the internet.">
   <meta property="og:title" content="dz.dev">
   <meta property="og:description" content="Building things on the internet.">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23000'/%3E%3Ctext x='16' y='22' font-family='Inter,sans-serif' font-size='18' font-weight='600' fill='%23fff' text-anchor='middle'%3Edz%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
@@ -246,6 +247,7 @@
 
     .project-item:hover::before { height: 100%; }
     .project-item:hover { background: rgba(255, 255, 255, 0.015); }
+    .project-item.project-link { cursor: pointer; }
 
     .project-name {
       font-size: 1.25rem; font-weight: 500; color: #e5e5e5;
@@ -504,10 +506,10 @@
         <span class="label-line"></span> Selected work
       </p>
 
-      <div class="project-item">
-        <span class="project-name">Coming Soon <span class="arrow-hint">:3</span></span>
-        <span class="project-desc">.....</span>
-      </div>
+      <a href="https://github.com/DZDEVreal?tab=repositories" target="_blank" rel="noopener noreferrer" class="project-item project-link">
+        <span class="project-name">Check GitHub <span class="arrow-hint">&#8599;</span></span>
+        <span class="project-desc">Repos &rarr;</span>
+      </a>
     </section>
 
     <div class="section-divider"></div>
