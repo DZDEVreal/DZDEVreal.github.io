@@ -498,8 +498,8 @@
         <span class="label-line"></span> About
       </p>
       <div class="about-text">
-        <p id="typewriterText">I'm Dz Dev. I like programming, computers, and tech in general — mainly use C, C++, and Python.</p>
-        <p>Low-level, high-level, doesn't matter. I just like making stuff that works.</p>
+        <p>I'm Dz Dev. I like programming, computers, and tech — mainly C, C++, and Python.</p>
+        <p>Low-level, high-level, doesn't matter. I just like building things that work.</p>
         <div class="about-status"><span class="dot"></span><span class="label">now</span> focusing on ML &amp; deep learning with PyTorch</div>
       </div>
     </section>
@@ -659,24 +659,7 @@
       document.addEventListener('mouseleave', function() { wrap.style.transform = 'rotateX(0deg) rotateY(0deg)'; });
     })();
 
-    (function() {
-      var el = document.getElementById('typewriterText');
-      if (!el) return;
-      var text = el.textContent;
-      el.textContent = '';
-      var i = 0;
-      function type() {
-        if (i < text.length) {
-          el.appendChild(document.createTextNode(text[i]));
-          i++;
-          setTimeout(type, 12 + Math.random() * 20);
-        }
-      }
-      var observer = new IntersectionObserver(function(entries) {
-        if (entries[0].isIntersecting) { setTimeout(type, 300); observer.unobserve(el); }
-      }, { threshold: 0.5 });
-      observer.observe(el);
-    })();
+
 
     var btn = document.getElementById('hamburgerBtn');
     var menu = document.getElementById('mobileMenu');
