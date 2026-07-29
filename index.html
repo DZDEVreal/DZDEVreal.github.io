@@ -431,15 +431,38 @@
 
       #backToTop { bottom: 20px; right: 20px; width: 36px; height: 36px; font-size: 0.9rem; }
       #cursorGlow { display: none; }
+
+      .about-avatar-inner { width: 120px; height: 120px; }
+      .about-avatar { width: 120px; height: 120px; }
+      .about-status { font-size: 0.75rem; }
     }
 
     @media (max-width: 640px) {
       .contact-grid { gap: 10px; }
       .contact-card { padding: 10px 16px; font-size: 0.8rem; }
+      .about-avatar-inner { width: 100px; height: 100px; }
+      .about-avatar { width: 100px; height: 100px; }
+      .post-title { font-size: 0.9rem; }
     }
 
     @media (max-width: 480px) {
       .about-text { font-size: 1rem; }
+      nav { height: 48px; }
+      .mobile-menu a { font-size: 0.85rem; padding: 10px 0; }
+      section { padding: 60px 0; }
+      #about { padding-top: 40px; }
+      .project-name { font-size: 1.05rem; }
+      .post-title { font-size: 0.85rem; }
+      .section-label { font-size: 0.65rem; margin-bottom: 24px; }
+    }
+
+    @media (max-width: 360px) {
+      nav { height: 44px; }
+      main { padding: 0 14px; }
+      .nav-inner { padding: 0 14px; }
+      .contact-card { padding: 8px 12px; font-size: 0.75rem; gap: 6px; }
+      .about-avatar-inner { width: 80px; height: 80px; }
+      .about-avatar { width: 80px; height: 80px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
