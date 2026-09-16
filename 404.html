@@ -11,23 +11,35 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { height: 100%; }
+    :root {
+      color-scheme: light;
+      --bg: #fafafa; --text: #171717; --code: #e5e5e5;
+      --msg: #737373; --btn-border: #e5e5e5; --btn-bg: #ffffff; --btn-text: #525252;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        color-scheme: dark;
+        --bg: #0e0e0e; --text: #e5e5e5; --code: #1f1f1f;
+        --msg: #8a8a8a; --btn-border: #262626; --btn-bg: #171717; --btn-text: #9c9c9c;
+      }
+    }
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: #fafafa; color: #171717;
+      background: var(--bg); color: var(--text);
       -webkit-font-smoothing: antialiased;
       display: flex; align-items: center; justify-content: center;
       text-align: center; padding: 32px;
     }
-    .code { font-size: 5rem; font-weight: 600; color: #e5e5e5; line-height: 1; margin-bottom: 8px; }
-    .msg { font-size: 1rem; color: #737373; margin-bottom: 32px; }
+    .code { font-size: 5rem; font-weight: 600; color: var(--code); line-height: 1; margin-bottom: 8px; }
+    .msg { font-size: 1rem; color: var(--msg); margin-bottom: 32px; }
     a {
       display: inline-flex; align-items: center; gap: 6px;
-      font-size: 0.85rem; color: #525252; text-decoration: none;
-      border: 1px solid #e5e5e5; padding: 10px 20px; border-radius: 6px;
-      background: #fff;
+      font-size: 0.85rem; color: var(--btn-text); text-decoration: none;
+      border: 1px solid var(--btn-border); padding: 10px 20px; border-radius: 6px;
+      background: var(--btn-bg);
       transition: color 0.15s ease, border-color 0.15s ease;
     }
-    a:hover { color: #000; border-color: #d4d4d4; }
+    a:hover { color: var(--text); border-color: #d4d4d4; }
   </style>
 </head>
 <body>
