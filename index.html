@@ -198,6 +198,18 @@
                 display: flex;
                 align-items: center;
                 justify-content: center;
+                animation: navIn 0.5s ease both;
+            }
+
+            @keyframes navIn {
+                from {
+                    opacity: 0;
+                    transform: translateY(-8px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
             }
 
             .nav-inner {
@@ -381,6 +393,18 @@
                 border-radius: 50%;
                 object-fit: cover;
                 margin-bottom: 28px;
+                animation: avatarIn 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+            }
+
+            @keyframes avatarIn {
+                from {
+                    opacity: 0;
+                    transform: scale(0.9);
+                }
+                to {
+                    opacity: 1;
+                    transform: scale(1);
+                }
             }
 
             .about-text {
@@ -437,12 +461,14 @@
                 background: var(--surface);
                 transition:
                     border-color 0.2s ease,
-                    box-shadow 0.2s ease;
+                    box-shadow 0.2s ease,
+                    transform 0.2s ease;
             }
 
             .project-card:hover {
                 border-color: var(--border-strong);
                 box-shadow: var(--shadow-card);
+                transform: translateY(-2px);
             }
 
             .project-card-header {
@@ -561,7 +587,8 @@
                 transition:
                     color 0.15s ease,
                     border-color 0.15s ease,
-                    box-shadow 0.15s ease;
+                    box-shadow 0.15s ease,
+                    transform 0.15s ease;
             }
 
             .contact-card svg {
@@ -579,6 +606,7 @@
                 color: var(--text-strong);
                 border-color: var(--border-strong);
                 box-shadow: var(--shadow-soft);
+                transform: translateY(-2px);
             }
 
             .footer {
@@ -667,13 +695,20 @@
                 opacity: 0;
                 transform: translateY(20px);
                 transition:
-                    opacity 0.6s ease,
-                    transform 0.6s ease;
+                    opacity 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+                    transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
             }
 
             .reveal.visible {
                 opacity: 1;
                 transform: translateY(0);
+            }
+
+            #work.reveal {
+                transition-delay: 0.05s;
+            }
+            #contact.reveal {
+                transition-delay: 0.1s;
             }
 
             /* Responsive */
