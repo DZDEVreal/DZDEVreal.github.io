@@ -313,6 +313,21 @@
                 letter-spacing: 0;
             }
 
+            .work-stats {
+                font-size: 0.75rem;
+                color: #999999;
+                margin: -4px 0 26px;
+            }
+
+            .work-stats .work-stat-ok {
+                color: #8a9a7b;
+            }
+
+            .work-stats .work-stat-sep {
+                color: #5f8787;
+                margin: 0 8px;
+            }
+
             /* Hero / About */
             #about {
                 padding-top: 120px;
@@ -384,6 +399,60 @@
             @keyframes cursorBlink {
                 50% {
                     opacity: 0;
+                }
+            }
+
+            .ticker {
+                margin-top: 44px;
+                padding: 12px 0;
+                overflow: hidden;
+                border-top: 1px solid #1c1c1c;
+                border-bottom: 1px solid #1c1c1c;
+                -webkit-mask-image: linear-gradient(
+                    to right,
+                    transparent,
+                    #000 8%,
+                    #000 92%,
+                    transparent
+                );
+                mask-image: linear-gradient(
+                    to right,
+                    transparent,
+                    #000 8%,
+                    #000 92%,
+                    transparent
+                );
+            }
+
+            .ticker-track {
+                display: flex;
+                align-items: center;
+                width: max-content;
+                animation: tickerScroll 32s linear infinite;
+            }
+
+            .ticker:hover .ticker-track {
+                animation-play-state: paused;
+            }
+
+            .ticker-track span {
+                font-size: 0.7rem;
+                font-weight: 500;
+                white-space: nowrap;
+                color: #777755;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+            }
+
+            .ticker-track span::after {
+                content: " /";
+                margin-right: 32px;
+                color: #5f8787;
+            }
+
+            @keyframes tickerScroll {
+                to {
+                    transform: translateX(-50%);
                 }
             }
 
@@ -546,11 +615,31 @@
                 font-size: 0.8rem;
                 font-weight: 500;
                 color: #5f8787;
+                position: relative;
+                padding-bottom: 3px;
                 transition: color var(--nile-transition);
+            }
+
+            .github-link::after {
+                content: "";
+                position: absolute;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                height: 1px;
+                background: currentColor;
+                opacity: 0.4;
+                transform: scaleX(0);
+                transform-origin: left;
+                transition: transform var(--nile-transition);
             }
 
             .github-link:hover {
                 color: #8a9a7b;
+            }
+
+            .github-link:hover::after {
+                transform: scaleX(1);
             }
 
             /* Contact */
@@ -605,7 +694,8 @@
                 transition:
                     color var(--nile-transition),
                     border-color var(--nile-transition),
-                    box-shadow var(--nile-transition);
+                    box-shadow var(--nile-transition),
+                    transform 0.25s ease;
             }
 
             .contact-card svg {
@@ -623,6 +713,7 @@
                 color: #8a9a7b;
                 border-color: #8a9a7b;
                 box-shadow: var(--nile-glow-sm);
+                transform: translateY(-2px);
             }
 
             .footer {
@@ -645,6 +736,19 @@
                 border-radius: 50%;
                 background: #8a9a7b;
                 vertical-align: middle;
+                animation: dotPulse 2.2s ease-in-out infinite;
+            }
+
+            @keyframes dotPulse {
+                0%,
+                100% {
+                    opacity: 1;
+                    box-shadow: 0 0 0 0 rgba(138, 154, 123, 0.45);
+                }
+                50% {
+                    opacity: 0.7;
+                    box-shadow: 0 0 0 4px rgba(138, 154, 123, 0);
+                }
             }
 
             .toast {
@@ -857,10 +961,15 @@
 
         <main>
             <section id="about" class="reveal">
-                <p class="hero-prompt">
+                <p
+                    class="hero-prompt"
+                    id="heroPrompt"
+                    aria-label="$ ~/dzdev cat dzdev"
+                >
                     <span class="hero-prompt-dollar">$</span>
-                    <span class="hero-prompt-path">~/dz</span>
-                    cat about.txt<span class="hero-prompt-cursor"></span>
+                    <span class="hero-prompt-path">~/dzdev</span>
+                    <span class="hero-prompt-cmd">cat dzdev</span
+                    ><span class="hero-prompt-cursor"></span>
                 </p>
                 <div class="about-avatar-wrap">
                     <img
@@ -887,12 +996,28 @@
                         building things that work.
                     </p>
                 </div>
+
+                <div class="ticker" aria-hidden="true">
+                    <div class="ticker-track">
+                        <span>C</span><span>C++</span><span>Python</span>
+                        <span>Linux</span><span>Git</span><span>Bash</span>
+                        <span>Terminal</span><span>Low-level</span><span>Web</span>
+                        <span>Vim</span><span>GitHub</span><span>Build</span>
+                        <span>Ship</span><span>Repeat</span>
+                        <span>C</span><span>C++</span><span>Python</span>
+                        <span>Linux</span><span>Git</span><span>Bash</span>
+                        <span>Terminal</span><span>Low-level</span><span>Web</span>
+                        <span>Vim</span><span>GitHub</span><span>Build</span>
+                        <span>Ship</span><span>Repeat</span>
+                    </div>
+                </div>
             </section>
 
             <hr class="section-divider" />
 
             <section id="work" class="reveal">
                 <p class="section-label">Selected work</p>
+                <p class="work-stats" id="projectStats"></p>
 
                 <div class="project-grid" id="projectGrid">
                     <a
@@ -1142,6 +1267,56 @@
                 syncActive();
             }
 
+            (function () {
+                var prompt = document.getElementById("heroPrompt");
+                if (!prompt) return;
+                if (
+                    window.matchMedia &&
+                    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+                ) {
+                    return;
+                }
+                var parts = [
+                    {
+                        el: prompt.querySelector(".hero-prompt-dollar"),
+                        text: "$",
+                        gap: 120,
+                    },
+                    {
+                        el: prompt.querySelector(".hero-prompt-path"),
+                        text: "~/dzdev",
+                        gap: 130,
+                    },
+                    {
+                        el: prompt.querySelector(".hero-prompt-cmd"),
+                        text: "cat dzdev",
+                        gap: 0,
+                    },
+                ];
+                parts.forEach(function (p) {
+                    p.el.textContent = "";
+                });
+                var step = 0;
+                var ci = 0;
+                function type() {
+                    if (step >= parts.length) {
+                        prompt.classList.add("typed");
+                        return;
+                    }
+                    var p = parts[step];
+                    if (ci <= p.text.length) {
+                        p.el.textContent = p.text.slice(0, ci);
+                        ci++;
+                        setTimeout(type, 38);
+                    } else {
+                        step++;
+                        ci = 0;
+                        setTimeout(type, p.gap);
+                    }
+                }
+                setTimeout(type, 250);
+            })();
+
             var revealElements = document.querySelectorAll(".reveal");
             if ("IntersectionObserver" in window) {
                 var observer = new IntersectionObserver(
@@ -1231,6 +1406,24 @@
                         repos.sort(function (a, b) {
                             return b.stargazers_count - a.stargazers_count;
                         });
+                        var totalStars = repos.reduce(function (acc, r) {
+                            return acc + (r.stargazers_count || 0);
+                        }, 0);
+                        var statsEl = document.getElementById("projectStats");
+                        if (statsEl) {
+                            var statsHtml =
+                                '<span class="work-stat-ok">[ok]</span> ' +
+                                repos.length +
+                                " repos";
+                            if (totalStars > 0) {
+                                statsHtml +=
+                                    ' <span class="work-stat-sep">\u00b7</span> ' +
+                                    '<span class="work-stat-ok">[ok]</span> ' +
+                                    totalStars +
+                                    " stars";
+                            }
+                            statsEl.innerHTML = statsHtml;
+                        }
                         var top = repos.slice(0, 4);
                         var html = "";
                         top.forEach(function (repo) {
