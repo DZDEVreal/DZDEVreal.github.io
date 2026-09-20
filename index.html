@@ -313,21 +313,6 @@
                 letter-spacing: 0;
             }
 
-            .work-stats {
-                font-size: 0.75rem;
-                color: #999999;
-                margin: -4px 0 26px;
-            }
-
-            .work-stats .work-stat-ok {
-                color: #8a9a7b;
-            }
-
-            .work-stats .work-stat-sep {
-                color: #5f8787;
-                margin: 0 8px;
-            }
-
             /* Hero / About */
             #about {
                 padding-top: 120px;
@@ -1017,9 +1002,8 @@
 
             <section id="work" class="reveal">
                 <p class="section-label">Selected work</p>
-                <p class="work-stats" id="projectStats"></p>
 
-                <div class="project-grid" id="projectGrid">
+                <div class="project-grid">
                     <a
                         href="https://github.com/DZDEVreal?tab=repositories"
                         target="_blank"
@@ -1381,87 +1365,6 @@
                                 "mailto:dz.dev.horror@gmail.com";
                         });
                 });
-            })();
-
-            (function () {
-                var grid = document.getElementById("projectGrid");
-                if (!grid) return;
-                var fallback = grid.innerHTML;
-
-                function escapeHtml(s) {
-                    var d = document.createElement("div");
-                    d.textContent = s;
-                    return d.innerHTML;
-                }
-
-                fetch(
-                    "https://api.github.com/users/DZDEVreal/repos?sort=updated&per_page=100",
-                )
-                    .then(function (r) {
-                        if (!r.ok) throw new Error("github");
-                        return r.json();
-                    })
-                    .then(function (repos) {
-                        if (!repos || !repos.length) throw new Error("empty");
-                        repos.sort(function (a, b) {
-                            return b.stargazers_count - a.stargazers_count;
-                        });
-                        var totalStars = repos.reduce(function (acc, r) {
-                            return acc + (r.stargazers_count || 0);
-                        }, 0);
-                        var statsEl = document.getElementById("projectStats");
-                        if (statsEl) {
-                            var statsHtml =
-                                '<span class="work-stat-ok">[ok]</span> ' +
-                                repos.length +
-                                " repos";
-                            if (totalStars > 0) {
-                                statsHtml +=
-                                    ' <span class="work-stat-sep">\u00b7</span> ' +
-                                    '<span class="work-stat-ok">[ok]</span> ' +
-                                    totalStars +
-                                    " stars";
-                            }
-                            statsEl.innerHTML = statsHtml;
-                        }
-                        var top = repos.slice(0, 4);
-                        var html = "";
-                        top.forEach(function (repo) {
-                            var desc = repo.description || "No description.";
-                            var lang = repo.language || "code";
-                            var stars = repo.stargazers_count;
-                            html +=
-                                '<a href="' +
-                                repo.html_url +
-                                '" target="_blank" rel="noopener noreferrer" class="project-card" aria-label="' +
-                                escapeHtml(repo.name) +
-                                '">' +
-                                '<div class="project-card-header">' +
-                                '<span class="project-card-title">' +
-                                escapeHtml(repo.name) +
-                                "</span>" +
-                                '<span class="project-card-arrow">&nearr;</span>' +
-                                "</div>" +
-                                '<p class="project-card-desc">' +
-                                escapeHtml(desc) +
-                                "</p>" +
-                                '<div class="project-card-tags">' +
-                                '<span class="project-card-tag">' +
-                                escapeHtml(lang) +
-                                "</span>" +
-                                '<span class="project-card-tag">&#9733; ' +
-                                stars +
-                                "</span>" +
-                                "</div>" +
-                                "</a>";
-                        });
-                        if (top.length) {
-                            grid.innerHTML = html + fallback;
-                        }
-                    })
-                    ["catch"](function () {
-                        grid.innerHTML = fallback;
-                    });
             })();
         </script>
     </body>
