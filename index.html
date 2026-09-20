@@ -3,6 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="theme-color" content="#000000" />
         <title>dz.dev — Dz Dev</title>
         <meta
             name="description"
@@ -42,6 +43,11 @@
                 margin: 0;
                 padding: 0;
                 box-sizing: border-box;
+            }
+
+            html {
+                scroll-behavior: smooth;
+                scroll-padding-top: 92px;
             }
 
             :root {
@@ -164,10 +170,13 @@
             }
 
             .nav-links li {
-                position: relative;
+                display: flex;
+                align-items: center;
             }
 
             .nav-links a {
+                position: relative;
+                padding: 14px 0;
                 font-size: 0.8rem;
                 font-weight: 400;
                 color: #c1c1c1;
@@ -177,12 +186,15 @@
             .nav-links a::after {
                 content: "";
                 position: absolute;
-                bottom: -20px;
                 left: 0;
-                width: 100%;
+                right: 0;
+                bottom: -2px;
                 height: 2px;
+                border-radius: 1px;
                 background: #8a9a7b;
+                box-shadow: 0 0 8px rgba(138, 154, 123, 0.4);
                 transform: scaleX(0);
+                transform-origin: left;
                 transition: transform var(--nile-transition);
             }
 
@@ -191,7 +203,15 @@
                 color: #e8e6de;
             }
 
+            .nav-links a:hover::after {
+                transform: scaleX(0.4);
+                background: #777755;
+                box-shadow: none;
+            }
+
             .nav-links a.active::after {
+                background: #8a9a7b;
+                box-shadow: 0 0 8px rgba(138, 154, 123, 0.4);
                 transform: scaleX(1);
             }
 
@@ -264,6 +284,10 @@
                 color: #8a9a7b;
             }
 
+            .mobile-menu a.active {
+                color: #8a9a7b;
+            }
+
             main {
                 max-width: 720px;
                 margin: 0 auto;
@@ -280,7 +304,13 @@
                 color: #777755;
                 letter-spacing: 0.1em;
                 text-transform: uppercase;
-                margin-bottom: 28px;
+                margin-bottom: 20px;
+            }
+
+            .section-label::before {
+                content: "// ";
+                color: #5f8787;
+                letter-spacing: 0;
             }
 
             /* Hero / About */
@@ -304,6 +334,14 @@
                 object-fit: cover;
                 border: 1px solid #333333;
                 animation: avatarIn 0.3s ease both;
+                transition:
+                    border-color var(--nile-transition),
+                    box-shadow var(--nile-transition);
+            }
+
+            .about-avatar:hover {
+                border-color: #5f8787;
+                box-shadow: var(--nile-glow-sm);
             }
 
             @keyframes avatarIn {
@@ -314,6 +352,38 @@
                 to {
                     opacity: 1;
                     transform: scale(1);
+                }
+            }
+
+            .hero-prompt {
+                font-size: 0.8rem;
+                color: #999999;
+                margin-bottom: 28px;
+                white-space: nowrap;
+                overflow: hidden;
+            }
+
+            .hero-prompt-dollar {
+                color: #8a9a7b;
+            }
+
+            .hero-prompt-path {
+                color: #5f8787;
+            }
+
+            .hero-prompt-cursor {
+                display: inline-block;
+                width: 8px;
+                height: 1em;
+                margin-left: 2px;
+                vertical-align: text-top;
+                background: #c1c1c1;
+                animation: cursorBlink 1.1s steps(1) infinite;
+            }
+
+            @keyframes cursorBlink {
+                50% {
+                    opacity: 0;
                 }
             }
 
@@ -366,6 +436,19 @@
             /* Work / Projects */
             #work {
                 padding-top: 60px;
+            }
+
+            .section-divider {
+                height: 1px;
+                border: none;
+                margin: 0;
+                background: linear-gradient(
+                    to right,
+                    transparent,
+                    rgba(138, 154, 123, 0.35) 30%,
+                    rgba(95, 135, 135, 0.18) 70%,
+                    transparent
+                );
             }
 
             .project-grid {
@@ -548,6 +631,20 @@
                 font-size: 0.7rem;
                 color: #777755;
                 border-top: 1px solid #1c1c1c;
+            }
+
+            .footer-sep {
+                color: #5f8787;
+            }
+
+            .footer-dot {
+                display: inline-block;
+                width: 5px;
+                height: 5px;
+                margin-left: 6px;
+                border-radius: 50%;
+                background: #8a9a7b;
+                vertical-align: middle;
             }
 
             .toast {
@@ -760,6 +857,11 @@
 
         <main>
             <section id="about" class="reveal">
+                <p class="hero-prompt">
+                    <span class="hero-prompt-dollar">$</span>
+                    <span class="hero-prompt-path">~/dz</span>
+                    cat about.txt<span class="hero-prompt-cursor"></span>
+                </p>
                 <div class="about-avatar-wrap">
                     <img
                         src="pp.jpg"
@@ -787,10 +889,12 @@
                 </div>
             </section>
 
+            <hr class="section-divider" />
+
             <section id="work" class="reveal">
                 <p class="section-label">Selected work</p>
 
-                <div class="project-grid">
+                <div class="project-grid" id="projectGrid">
                     <a
                         href="https://github.com/DZDEVreal?tab=repositories"
                         target="_blank"
@@ -838,6 +942,8 @@
                     >View GitHub profile &rarr;</a
                 >
             </section>
+
+            <hr class="section-divider" />
 
             <section id="contact" class="reveal">
                 <a
@@ -925,7 +1031,11 @@
             &uarr;
         </button>
 
-        <footer class="footer">&copy; 2026 dz.dev</footer>
+        <footer class="footer">
+            &copy; 2026 dz.dev
+            <span class="footer-sep">//</span>
+            plain html, css, js<span class="footer-dot"></span>
+        </footer>
 
         <script>
             var btn = document.getElementById("hamburgerBtn");
@@ -946,16 +1056,32 @@
                 });
             });
 
+            function setActive(href) {
+                if (!href || href === "#") return;
+                document
+                    .querySelectorAll('a[href^="#"]')
+                    .forEach(function (a) {
+                        a.classList.toggle(
+                            "active",
+                            a.getAttribute("href") === href,
+                        );
+                    });
+            }
+
             document
                 .querySelectorAll('a[href^="#"]')
                 .forEach(function (anchor) {
                     anchor.addEventListener("click", function (e) {
                         var href = this.getAttribute("href");
                         if (href === "#") return;
+                        setActive(href);
                         var target = document.querySelector(href);
                         if (target) {
                             e.preventDefault();
-                            target.scrollIntoView({ behavior: "smooth" });
+                            target.scrollIntoView({
+                                behavior: "smooth",
+                                block: "start",
+                            });
                         }
                     });
                 });
@@ -974,27 +1100,47 @@
                 window.scrollTo({ top: 0, behavior: "smooth" });
             });
 
-            var sections = document.querySelectorAll("section[id]");
-            var navAnchors = document.querySelectorAll("#navLinks a");
+            var sections = Array.prototype.slice.call(
+                document.querySelectorAll("section[id]"),
+            );
 
-            function updateActiveNav() {
-                var sp = window.scrollY + 120;
+            function syncActive() {
                 var current = "";
+                var line = window.innerHeight / 2;
                 sections.forEach(function (s) {
-                    if (sp >= s.offsetTop && sp < s.offsetTop + s.offsetHeight) {
+                    var top = s.getBoundingClientRect().top;
+                    var bottom = top + s.offsetHeight;
+                    if (top <= line && bottom > line) {
                         current = s.getAttribute("id");
                     }
                 });
-                navAnchors.forEach(function (a) {
-                    a.classList.toggle(
-                        "active",
-                        a.getAttribute("href") === "#" + current,
-                    );
-                });
+                if (current) {
+                    setActive("#" + current);
+                }
             }
 
-            window.addEventListener("scroll", updateActiveNav);
-            window.addEventListener("resize", updateActiveNav);
+            if ("IntersectionObserver" in window) {
+                var navObserver = new IntersectionObserver(
+                    function (entries) {
+                        entries.forEach(function (entry) {
+                            if (entry.isIntersecting) {
+                                setActive("#" + entry.target.id);
+                            }
+                        });
+                    },
+                    {
+                        rootMargin: "-45% 0px -50% 0px",
+                        threshold: 0,
+                    },
+                );
+                sections.forEach(function (s) {
+                    navObserver.observe(s);
+                });
+            } else {
+                window.addEventListener("scroll", syncActive);
+                window.addEventListener("resize", syncActive);
+                syncActive();
+            }
 
             var revealElements = document.querySelectorAll(".reveal");
             if ("IntersectionObserver" in window) {
@@ -1060,6 +1206,69 @@
                                 "mailto:dz.dev.horror@gmail.com";
                         });
                 });
+            })();
+
+            (function () {
+                var grid = document.getElementById("projectGrid");
+                if (!grid) return;
+                var fallback = grid.innerHTML;
+
+                function escapeHtml(s) {
+                    var d = document.createElement("div");
+                    d.textContent = s;
+                    return d.innerHTML;
+                }
+
+                fetch(
+                    "https://api.github.com/users/DZDEVreal/repos?sort=updated&per_page=100",
+                )
+                    .then(function (r) {
+                        if (!r.ok) throw new Error("github");
+                        return r.json();
+                    })
+                    .then(function (repos) {
+                        if (!repos || !repos.length) throw new Error("empty");
+                        repos.sort(function (a, b) {
+                            return b.stargazers_count - a.stargazers_count;
+                        });
+                        var top = repos.slice(0, 4);
+                        var html = "";
+                        top.forEach(function (repo) {
+                            var desc = repo.description || "No description.";
+                            var lang = repo.language || "code";
+                            var stars = repo.stargazers_count;
+                            html +=
+                                '<a href="' +
+                                repo.html_url +
+                                '" target="_blank" rel="noopener noreferrer" class="project-card" aria-label="' +
+                                escapeHtml(repo.name) +
+                                '">' +
+                                '<div class="project-card-header">' +
+                                '<span class="project-card-title">' +
+                                escapeHtml(repo.name) +
+                                "</span>" +
+                                '<span class="project-card-arrow">&nearr;</span>' +
+                                "</div>" +
+                                '<p class="project-card-desc">' +
+                                escapeHtml(desc) +
+                                "</p>" +
+                                '<div class="project-card-tags">' +
+                                '<span class="project-card-tag">' +
+                                escapeHtml(lang) +
+                                "</span>" +
+                                '<span class="project-card-tag">&#9733; ' +
+                                stars +
+                                "</span>" +
+                                "</div>" +
+                                "</a>";
+                        });
+                        if (top.length) {
+                            grid.innerHTML = html + fallback;
+                        }
+                    })
+                    ["catch"](function () {
+                        grid.innerHTML = fallback;
+                    });
             })();
         </script>
     </body>
