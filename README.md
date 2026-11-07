@@ -1,3 +1,3 @@
-# dz.dev
+# Dz Dev
 
-Personal site — built with plain HTML, CSS, and JS. Hosted on GitHub Pages.
+Personal site. Plain HTML, CSS, and JS. Hosted on GitHub Pages.
