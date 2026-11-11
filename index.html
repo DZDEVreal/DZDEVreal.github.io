@@ -622,41 +622,6 @@
                 transform: translateY(-2px);
             }
 
-            .footer {
-                text-align: center;
-                padding: 24px 0 40px;
-                font-size: 0.7rem;
-                color: var(--fg-subtle);
-                border-top: 1px solid var(--border);
-            }
-
-            .footer-sep {
-                color: var(--fg-dim);
-            }
-
-            .footer-dot {
-                display: inline-block;
-                width: 5px;
-                height: 5px;
-                margin-left: 6px;
-                border-radius: 50%;
-                background: var(--accent);
-                vertical-align: middle;
-                animation: dotPulse 2.2s ease-in-out infinite;
-            }
-
-            @keyframes dotPulse {
-                0%,
-                100% {
-                    opacity: 1;
-                    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.35);
-                }
-                50% {
-                    opacity: 0.7;
-                    box-shadow: 0 0 0 4px rgba(255, 255, 255, 0);
-                }
-            }
-
             .toast {
                 position: fixed;
                 bottom: 32px;
@@ -1162,14 +1127,6 @@
             &uarr;
         </button>
 
-        <footer class="footer">
-            &copy; <span id="year">2026</span> Dz Dev
-            <span class="footer-sep">//</span>
-            <span id="localTime">--:--</span> local
-            <span class="footer-sep">//</span>
-            plain html, css, js<span class="footer-dot" aria-hidden="true"></span>
-        </footer>
-
         <script>
             (function () {
                 "use strict";
@@ -1442,25 +1399,6 @@
                     });
                 })();
 
-                /* Live local time in the footer */
-                (function () {
-                    var timeEl = document.getElementById("localTime");
-                    if (!timeEl) return;
-                    function tickClock() {
-                        try {
-                            timeEl.textContent =
-                                new Date().toLocaleTimeString([], {
-                                    hour: "2-digit",
-                                    minute: "2-digit",
-                                });
-                        } catch (e) {
-                            timeEl.textContent = "";
-                        }
-                    }
-                    tickClock();
-                    setInterval(tickClock, 20000);
-                })();
-
                 /* Press C anywhere to copy the email */
                 document.addEventListener("keydown", function (e) {
                     if (e.key !== "c" && e.key !== "C") return;
@@ -1478,9 +1416,6 @@
                     if (emailBtn) emailBtn.click();
                 });
 
-                /* Dynamic year */
-                var yearEl = document.getElementById("year");
-                if (yearEl) yearEl.textContent = new Date().getFullYear();
             })();
         </script>
     </body>
